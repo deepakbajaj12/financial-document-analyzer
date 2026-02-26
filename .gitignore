@@ -1,0 +1,25 @@
+# Virtual environment
+.venv/
+venv/
+
+# Environment variables (API keys)
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Uploaded files
+data/financial_document_*.pdf
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Outputs
+outputs/*.json
