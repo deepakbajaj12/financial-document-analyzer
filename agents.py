@@ -15,7 +15,7 @@ from tools import search_tool, FinancialDocumentTool
 # CrewAI's Agent pydantic model.
 llm = None
 if os.getenv("GOOGLE_API_KEY"):
-    llm = LLM(model="gemini/gemini-1.5-flash", temperature=0.5)
+    llm = LLM(model="gemini/gemini-2.5-flash", temperature=0.5)
 elif os.getenv("OPENAI_API_KEY"):
     llm = LLM(model="openai/gpt-3.5-turbo", temperature=0.7)
 else:

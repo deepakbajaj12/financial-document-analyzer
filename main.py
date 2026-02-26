@@ -2,6 +2,7 @@ from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 import os
 import uuid
 import asyncio
+import tempfile
 
 from crewai import Crew, Process
 from agents import financial_analyst, verifier, investment_advisor, risk_assessor
@@ -13,6 +14,9 @@ from task import (
 )
 
 app = FastAPI(title="Financial Document Analyzer")
+
+# Base directory for resolving relative paths
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def run_crew(query: str, file_path: str):
@@ -40,12 +44,10 @@ async def analyze_endpoint(
     """Analyze financial document and provide comprehensive investment recommendations."""
 
     file_id = str(uuid.uuid4())
-    file_path = f"data/financial_document_{file_id}.pdf"
+    # Use system temp directory to avoid permission issues
+    file_path = os.path.join(tempfile.gettempdir(), f"financial_document_{file_id}.pdf")
 
     try:
-        # Ensure data directory exists
-        os.makedirs("data", exist_ok=True)
-
         # Save uploaded file
         with open(file_path, "wb") as f:
             content = await file.read()
